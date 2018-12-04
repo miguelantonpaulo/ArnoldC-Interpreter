@@ -266,31 +266,30 @@ namespace ArnoldC_Interpreter
 
                     if (OperationFlag == true)
                     {
-                        if (prevLineNum < currLine && currLine < nexLineNum)
+
+                        dataForSemanticAnalyzer.Add(new Tuple<string, string, int>(lexeme, lexinfo, lineNum));
+                        opDeclaration = true;
+
+                        if (i < codePerLine.Count)
                         {
-                            dataForSemanticAnalyzer.Add(new Tuple<string, string, int>(lexeme, lexinfo, lineNum));
-                            opDeclaration = true;
+                            String nextLexeme = codePerLine.ElementAt(i + 1).Item1;
+                            String nextLexinfo = codePerLine.ElementAt(i + 1).Item2;
+                            int nextLineNum = codePerLine.ElementAt(i + 1).Item3;
 
-                            if (i < codePerLine.Count)
+                            if (nextLexinfo == "VAR")
                             {
-                                String nextLexeme = codePerLine.ElementAt(i + 1).Item1;
-                                String nextLexinfo = codePerLine.ElementAt(i + 1).Item2;
-                                int nextLineNum = codePerLine.ElementAt(i + 1).Item3;
-
-                                if (nextLexinfo == "VAR")
-                                {
-                                    dataForSemanticAnalyzer.Add(new Tuple<string, string, int>(nextLexeme, nextLexinfo, nextLineNum));
-                                }
-                                else if (nextLexinfo == "INT")
-                                {
-                                    dataForSemanticAnalyzer.Add(new Tuple<string, string, int>(nextLexeme, nextLexinfo, nextLineNum));
-                                }
-                                else
-                                {
-                                    //error, dapat VAR
-                                    error = (new Tuple<Boolean, String, int>(true, "Expected variable or integer after 'HERE IS MY INVITATION'", lineNum));
-                                }
+                                dataForSemanticAnalyzer.Add(new Tuple<string, string, int>(nextLexeme, nextLexinfo, nextLineNum));
                             }
+                            else if (nextLexinfo == "INT")
+                            {
+                                dataForSemanticAnalyzer.Add(new Tuple<string, string, int>(nextLexeme, nextLexinfo, nextLineNum));
+                            }
+                            else
+                            {
+                                //error, dapat VAR
+                                error = (new Tuple<Boolean, String, int>(true, "Expected variable or integer after 'HERE IS MY INVITATION'", lineNum));
+                            }
+
                         }
                     }
                     else
@@ -766,7 +765,7 @@ namespace ArnoldC_Interpreter
                 if (varDeclarationClosed == false)
                 {
                     //error, var declaration incomplete
-                    error = (new Tuple<Boolean, String, int>(true, "Variable declaration not executed properly", lineNum));
+                    error = (new Tuple<Boolean, String, int>(false, "Variable declaration not executed properly", lineNum));
                 }
 
                 //check ifelse block
