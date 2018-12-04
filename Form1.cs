@@ -31,7 +31,10 @@ namespace ArnoldC_Interpreter
 
         private void browseButton_Click(object sender, EventArgs e)
         {
-
+            editorTBox.Text = "";
+            outputTBox.Text = "";
+            LexerSymbolTable.Rows.Clear();
+            SymbolTable.Rows.Clear();
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             openFileDialog1.InitialDirectory = @"C:\";
@@ -73,6 +76,7 @@ namespace ArnoldC_Interpreter
 
         private void runButton_Click(object sender, EventArgs e)
         {
+            LexerSymbolTable.Rows.Clear();
             //Start lexixal analysis
             mod1 = new Module1();
             code = editorTBox.Text;
