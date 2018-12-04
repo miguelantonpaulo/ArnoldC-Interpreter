@@ -108,6 +108,8 @@ namespace ArnoldC_Interpreter
                                 else
                                 {
                                     //error, varname exists
+                                    error = (new Tuple<bool, string, int>(true, "Line [" + lineNum.ToString() + "] Error: variable name exists", lineNum));
+                                    Console.WriteLine(error);
                                 }
                             }
                         }
@@ -144,12 +146,16 @@ namespace ArnoldC_Interpreter
                             else
                             {
                                 //error, varname exists
+                                error = (new Tuple<bool, string, int>(true, "Line [" + lineNum.ToString() + "] Error: variable name exists", lineNum));
+                                Console.WriteLine(error);
                             }
                         }
                     }
                     else
                     {
                         //error not in scope of program
+                        error = (new Tuple<bool, string, int>(true, "Line [" + lineNum.ToString() + "] Error: Not in the scope of the program", lineNum));
+                        Console.WriteLine(error);
                     }
                 }
 
@@ -179,11 +185,15 @@ namespace ArnoldC_Interpreter
                         else
                         {
                             //error, varname does not exist
+                            error = (new Tuple<bool, string, int>(true, "Line [" + lineNum.ToString() + "] Error: variable name exists", lineNum));
+                            Console.WriteLine(error);
                         }
                     }
                     else
                     {
                         //error not in scope of program
+                        error = (new Tuple<bool, string, int>(true, "Line [" + lineNum.ToString() + "] Error: variable name exists", lineNum));
+                        Console.WriteLine(error);
                     }
                 }
             }
